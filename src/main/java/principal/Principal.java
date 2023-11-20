@@ -3,38 +3,41 @@ package principal;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.AutorDAO;
-import dao.PostDAO;
-import entities.Autor;
-import entities.Post;
+import dao.ReceitaDAO;
+import dao.PessoaDAO;
+import entities.Receita;
+import entities.Pessoa;
 
+/**
+ * @author Pedro Alex
+ */
 public class Principal {
 	
-	public static void main(String[] args) {
-		PostDAO postDAO = new PostDAO();
+	public static void main(String[] args) {		
+		ReceitaDAO receitaDAO = new ReceitaDAO();
 		
-		Post post1 = new Post();
-		post1.setTitulo("Artigo 1");
+		Receita receita1 = new Receita();
+		receita1.setDescricao("Salário Empresa 1");
+		receita1.setValor(1250.0);
 		
-		Post post2 = new Post();
-		post2.setTitulo("Artigo 2");
-		
-		postDAO.salvar(post1);
-		postDAO.salvar(post2);
-		
-		List<Post> posts = new ArrayList<Post>();
-		post1 = postDAO.buscarPorId(1);
-		post2 = postDAO.buscarPorId(2);
-		posts.add(post1);
-		posts.add(post2);
+		receitaDAO.salvar(receita1);
 
-		AutorDAO autorDAO = new AutorDAO();
+		Receita receita2 = new Receita();
+		receita2.setDescricao("Salário Empresa 2");
+		receita2.setValor(1050.98);
 		
-		Autor autor = new Autor();
-		autor.setNome("Pedro Alex");
-		autor.setPosts(posts);
+		receitaDAO.salvar(receita2);
 		
-		autorDAO.salvar(autor);
+		List<Receita> receitas = new ArrayList<Receita>();
+		receitas.addAll(receitaDAO.listarTodos());
+
+		PessoaDAO pessoaDAO = new PessoaDAO();
+		
+		Pessoa pessoa = new Pessoa();
+		pessoa.setNome("Carlos");
+		pessoa.setReceitas(receitas);
+		
+		pessoaDAO.salvar(pessoa);
 		
 	}
 }
